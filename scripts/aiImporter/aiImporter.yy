@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"aiImporter",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"aiImporter",
+  "parent":{
+    "name":"Libraries",
+    "path":"folders/Libraries.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

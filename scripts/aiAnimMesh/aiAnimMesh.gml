@@ -26,7 +26,7 @@ function aiAnimMesh() constructor {
 	mTangents = [];
 	mBitangents = [];
 	mColors = [];
-	mTextureCoords = [];
+	mUVChannels = [];
 	
 	
 }

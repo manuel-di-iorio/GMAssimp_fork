@@ -7,24 +7,29 @@
 #macro AI_MAX_VERTICES					0x7fffffff
 
 
+enum aiPrimitiveType
+{
+	POINT		= 0x1,
+	LINE		= 0x2,
+	TRIANGLE	= 0x4,
+	POLYGON		= 0x8
+}
+
 
 function aiMesh() constructor {
 	
+	mName = "";
+	mMaterialIndex = 0;
 	mPrimitiveTypes = 0;
 	mNumVertices = 0;
-	mNumFaces = 0;
 	mVertices = [];
 	mNormals = [];
 	mTangents = [];
 	mBitangents = [];
 	mColors = [];
-	mTextureCoords = [];
+	mUVChannels = [];
 	mFaces = [];
-	mNumBones = 0;
 	mBones = [];
-	mMaterialIndex = 0;
-	mName = "";
-	mNumAnimMeshes = 0;
 	mAnimMeshes = [];
 	/**
 	 *  Method of morphing when anim-meshes are specified.
@@ -38,45 +43,27 @@ function aiMesh() constructor {
 	}
 	
 	static GetNumUVChannels = function() {
-		return array_length(mTextureCoords);
+		return array_length(mUVChannels);
 	}
 	
 	static HasBones = function() {
-		return mNumBones > 0;	
+		return array_length(mNumBones) > 0;
 	}
 	
 	static HasFaces = function() {
-		return mFaces > 0;	
+		return array_length(mFaces) > 0;
 	}
 	
 	static HasNormals = function() {
-		return mNormals > 0;	
+		return array_length(mmNormalsFaces) > 0;
 	}
 	
 	static HasPositions = function() {
-		return mVertices > 0;	
+		return array_length(mVertices) > 0;
 	}
 	
 	static HasTangentsAndBitangents = function() {
-		return mTangents > 0;	
-	}
-	
-	static HasTextureCoords = function() {
-		for (var _i = 0; _i < mNumUVComponents; _i++) {
-			if ( array_length(mTextureCoords[_i]) > 0 ) {
-				return true;	
-			}
-		}
-		return false;
-	}
-	
-	static HasVertexColors = function() {
-		for (var _i = 0; _i < GetNumColorChannels(); _i++) {
-			if ( array_length(mColors[_i]) > 0 ) {
-				return true;	
-			}
-		}
-		return false;
+		return array_length(mTangents) > 0;
 	}
 	
 	
@@ -91,8 +78,8 @@ function aiMesh() constructor {
 		
 		mMaterialIndex = ASSIMP_GetMeshMaterialIndex();
 		
-		mNumFaces = ASSIMP_GetMeshFacesNum();
-			for (var _f = 0; _f < mNumFaces; _f++) {
+		var _mNumFaces = ASSIMP_GetMeshFacesNum();
+			for (var _f = 0; _f < _mNumFaces; _f++) {
 				var _face = new aiFace();
 				_face.mNumIndices = ASSIMP_GetMeshFaceVerticesNum(_f);
 				for (var _i = 0; _i < mNumIndices; _i++) {
@@ -139,8 +126,8 @@ function aiMesh() constructor {
 			}
 		}
 		
-		mNumBones = ASSIMP_GetMeshBonesNum();
-			for (var _i = 0; _i < mNumBones; _i++) {
+		var _mNumBones = ASSIMP_GetMeshBonesNum();
+			for (var _i = 0; _i < _mNumBones; _i++) {
 				ASSIMP_BindMeshBone(_i);
 				
 				var _bone = new aiBone();
@@ -195,20 +182,102 @@ function aiMesh() constructor {
 			for (var _ch = 0; _ch < _numUVChannels; _ch++) {
 				var _uv_ch = new aiUVChannel();
 				_uv_ch.mName = ASSIMP_GetMeshTextureCoordsName(_ch);
-				_uv_ch.mNumUVComponents = ASSIMP_GetMeshNumUVComponents(_ch);
+				_uv_ch.mNumComponents = ASSIMP_GetMeshNumUVComponents(_ch);
 				var _tex_coords = array_create(_numUVChannels, 0);	//Preallocation
 				for (var _i = 0; _i < mNumVertices; _i++) {
 					_tex_coords[_i] = new aiVector3D(
-						ASSIMP_GetMeshTexCoordU(),
-						ASSIMP_GetMeshTexCoordV(),
-						ASSIMP_GetMeshTexCoordW()
+						ASSIMP_GetMeshTexCoordU(_i, _ch),
+						ASSIMP_GetMeshTexCoordV(_i, _ch),
+						ASSIMP_GetMeshTexCoordW(_i, _ch)
 					);
 				}
 				_uv_ch.mTextureCoords = _tex_coords;
+				array_push(mUVChannels, _uv_ch);
 			}
 			
-		//mNumAnimMeshes = assimp_getmeshan
-		//mAnimMeshes = [];
+		var _mNumAnimMeshes = ASSIMP_GetMeshAnimMeshNum();
+			for (var _i = 0; _i < _mNumAnimMeshes; _i++) {
+				var _anim_mesh = new aiAnimMesh();
+				_anim_mesh.mName = ASSIMP_GetMeshAnimMeshName(_i);
+				
+				if (ASSIMP_GetMeshAnimMeshHasPositions(_i)) {
+					for (var _j = 0; _j < mNumVertices; _j++) {
+						var _v = new aiVector3D();
+						_v.x = ASSIMP_GetMeshAnimMeshVertexX(_i, _j);
+						_v.y = ASSIMP_GetMeshAnimMeshVertexY(_i, _j);
+						_v.z = ASSIMP_GetMeshAnimMeshVertexZ(_i, _j);
+						array_push(_anim_mesh.mVertices, _v);
+					}
+				}
+				
+				if (ASSIMP_GetMeshAnimMeshHasNormals(_i)) {
+					for (var _j = 0; _j < mNumVertices; _j++) {
+						var _v = new aiVector3D();
+						_v.x = ASSIMP_GetMeshAnimMeshNormalX(_i, _j);
+						_v.y = ASSIMP_GetMeshAnimMeshNormalY(_i, _j);
+						_v.z = ASSIMP_GetMeshAnimMeshNormalZ(_i, _j);
+						array_push(_anim_mesh.mNormals, _v);
+					}
+				}
+				
+				if (ASSIMP_GetMeshAnimMeshHasTangents(_i)) {
+					for (var _j = 0; _j < mNumVertices; _j++) {
+						var _v = new aiVector3D();
+						_v.x = ASSIMP_GetMeshAnimMeshTangentX(_i, _j);
+						_v.y = ASSIMP_GetMeshAnimMeshTangentY(_i, _j);
+						_v.z = ASSIMP_GetMeshAnimMeshTangentZ(_i, _j);
+						array_push(_anim_mesh.mTangents, _v);
+					}
+				}
+				
+				if (ASSIMP_GetMeshAnimMeshHasBitangents(_i)) {
+					for (var _j = 0; _j < mNumVertices; _j++) {
+						var _v = new aiVector3D();
+						_v.x = ASSIMP_GetMeshAnimMeshBitangentX(_i, _j);
+						_v.y = ASSIMP_GetMeshAnimMeshBitangentY(_i, _j);
+						_v.z = ASSIMP_GetMeshAnimMeshBitangentZ(_i, _j);
+						array_push(_anim_mesh.mBitangents, _v);
+					}
+				}
+		
+				_mNumColorChannels = ASSIMP_GetMeshColorChannelsNum();
+					for (var _ch = 0; _ch < _mNumColorChannels; _ch++) {
+						if (ASSIMP_GetMeshAnimMeshHasColors(_i, _ch)) {
+							var _color_ch = array_create(_mNumColorChannels, 0);	//Preallocation
+							for (var _j = 0; _j < mNumVertices; _j++) {
+								_color_ch[_i] = new aiColor4D(
+									ASSIMP_GetMeshAnimMeshVertexColorR(_i, _ch, _j),
+									ASSIMP_GetMeshAnimMeshVertexColorG(_i, _ch, _j),
+									ASSIMP_GetMeshAnimMeshVertexColorB(_i, _ch, _j),
+									ASSIMP_GetMeshAnimMeshVertexColorA(_i, _ch, _j)
+								);
+				
+							}
+							array_push(_anim_mesh.mColors, _color_ch);
+						}
+					}
+		
+				_numUVChannels = ASSIMP_GetMeshUVChannelsNum();
+					for (var _ch = 0; _ch < _numUVChannels; _ch++) {
+						if (ASSIMP_GetMeshAnimMeshHasTexCoords(_i, _ch)) {
+							var _uv_ch = new aiUVChannel();
+							_uv_ch.mName = ASSIMP_GetMeshTextureCoordsName(_ch);
+							_uv_ch.mNumComponents = ASSIMP_GetMeshNumUVComponents(_ch);
+							var _tex_coords = array_create(_numUVChannels, 0);	//Preallocation
+							for (var _j = 0; _j < mNumVertices; _j++) {
+								_tex_coords[_i] = new aiVector3D(
+									ASSIMP_GetMeshAnimMeshTexCoordU(_i, _ch, _j),
+									ASSIMP_GetMeshAnimMeshTexCoordV(_i, _ch, _j),
+									ASSIMP_GetMeshAnimMeshTexCoordW(_i, _ch, _j)
+								);
+							}
+							_uv_ch.mTextureCoords = _tex_coords;
+							array_push(_anim_mesh.mUVChannels, _uv_ch);
+						}
+					}
+				
+				array_push(mAnimMeshes, _anim_mesh);
+			}
 		
 		mMethod = ASSIMP_GetMeshMorphMethod();
 		

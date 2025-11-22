@@ -158,13 +158,6 @@ enum ASSIMP_LIGHT_SOURCE_TYPE
 }
 
 
-enum aiPrimitiveType
-{
-	POINT		= 0x1,
-	LINE		= 0x2,
-	TRIANGLE	= 0x4,
-	POLYGON		= 0x8
-}
 
 
 enum ASSIMP_ANIMATION_BEHAVIOUR

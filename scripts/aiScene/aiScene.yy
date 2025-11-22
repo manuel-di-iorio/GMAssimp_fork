@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"aiScene",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"aiScene",
+  "parent":{
+    "name":"Libraries",
+    "path":"folders/Libraries.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

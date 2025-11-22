@@ -16,6 +16,6 @@ function aiUVChannel() constructor {
 	 * If the value is 1 for a given channel, p.y is set to 0.0f, too.
 	 * @note 4D coordinates are not supported
 	 */
-	mNumUVComponents = 2;
+	mNumComponents = 2;
 	mTextureCoords = [];
 }
