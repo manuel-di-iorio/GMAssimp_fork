@@ -1054,6 +1054,13 @@ namespace Mesh
 			return act_mesh->mAABB.mMax.z;
 		}
 
+		export double GetMeshNumUVComponents(double texture_channel)
+		{
+			if (!act_mesh) { return 0; }
+			if (texture_channel >= act_mesh->GetNumUVChannels()) { return 0; }
+			return act_mesh->mNumUVComponents[(uint)texture_channel];
+		}
+
 		export const char* GetMeshTextureCoordsName(double texture_channel)
 		{
 			if (!act_mesh) { return ""; }

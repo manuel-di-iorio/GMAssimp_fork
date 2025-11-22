@@ -194,6 +194,8 @@ function aiMesh() constructor {
 			for (var _ch = 0; _ch < _numUVChannels; _ch++) {
 				var _uv_ch = new aiUVChannel();
 				_uv_ch.mName = ASSIMP_GetMeshTextureCoordsName(_ch);
+				_uv_ch.mNumUVComponents = ASSIMP_GetMesht(_ch);
+				
 				for (var _i = 0; _i < mNumVertices; _i++) {
 					
 					var _col = new aiColor4D(
