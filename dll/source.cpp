@@ -736,6 +736,7 @@ namespace Importer
 	{
 		if (act_importer)
 		{
+			ret_string = "";
 			act_importer->GetExtensionList(ret_string);
 			return (char*)ret_string.C_Str();
 		}
@@ -1507,6 +1508,7 @@ namespace Material
 #else
 			uint ai_t = t;
 #endif
+			ret_string = "";
 			act_material->Get(AI_MATKEY_TEXTURE(ai_t, (uint)n), ret_string);
 			return (char*)ret_string.C_Str();
 		}

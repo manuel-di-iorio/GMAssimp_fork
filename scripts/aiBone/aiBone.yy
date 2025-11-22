@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"aiVector3D",
+  "%Name":"aiBone",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"aiVector3D",
+  "name":"aiBone",
   "parent":{
     "name":"Libraries",
     "path":"folders/Libraries.yy",

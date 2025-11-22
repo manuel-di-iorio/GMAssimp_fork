@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"aiVector3D",
+  "%Name":"aiVertexWeight",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"aiVector3D",
+  "name":"aiVertexWeight",
   "parent":{
     "name":"Libraries",
     "path":"folders/Libraries.yy",
