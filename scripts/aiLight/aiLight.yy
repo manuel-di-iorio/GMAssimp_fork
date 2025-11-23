@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"aiLight",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"aiLight",
+  "parent":{
+    "name":"Libraries",
+    "path":"folders/Libraries.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

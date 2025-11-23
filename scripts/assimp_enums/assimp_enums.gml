@@ -147,7 +147,7 @@ enum ASSIMP_PROPERTY_TYPE_INFO
 }
 
 
-enum ASSIMP_LIGHT_SOURCE_TYPE
+enum aiLightSourceType
 {
 	UNDEFINED	= 0,
 	DIRECTIONAL	= 1,

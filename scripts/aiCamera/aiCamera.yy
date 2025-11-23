@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"aiCamera",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"aiCamera",
+  "parent":{
+    "name":"Libraries",
+    "path":"folders/Libraries.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

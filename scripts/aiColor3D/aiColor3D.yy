@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"aiColor3D",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"aiColor3D",
+  "parent":{
+    "name":"Libraries",
+    "path":"folders/Libraries.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

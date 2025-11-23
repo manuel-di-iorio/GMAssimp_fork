@@ -1,6 +1,12 @@
 function aiMaterial() constructor {
 	
 	mName = "";
+	
+	
+	
+	
+	
+	
 	mMaterialIndex = 0;
 	mPrimitiveTypes = 0;
 	mNumVertices = 0;

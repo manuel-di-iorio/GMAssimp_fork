@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"aiVector2D",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"aiVector2D",
+  "parent":{
+    "name":"Libraries",
+    "path":"folders/Libraries.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
