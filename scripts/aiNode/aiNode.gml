@@ -3,7 +3,7 @@ function aiNode() constructor {
 	mTransformation = matrix_build_identity();
 	mChildren = [];
 	mMeshes = [];
-	mMetaData = {};
+	//mMetaData = {};
 	
 	
 	/// @ignore

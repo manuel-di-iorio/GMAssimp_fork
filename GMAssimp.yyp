@@ -14,7 +14,9 @@
     {"$GMFolder":"","%Name":"Assimp","folderPath":"folders/Libraries/Assimp.yy","name":"Assimp","resourceType":"GMFolder","resourceVersion":"2.0",},
   ],
   "ForcedPrefabProjectReferences":[],
-  "IncludedFiles":[],
+  "IncludedFiles":[
+    {"$GMIncludedFile":"","%Name":"OrientationTest.glb","CopyToMask":-1,"filePath":"datafiles","name":"OrientationTest.glb","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+  ],
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
@@ -31,6 +33,7 @@
     {"id":{"name":"aiColor4D","path":"scripts/aiColor4D/aiColor4D.yy",},},
     {"id":{"name":"aiFace","path":"scripts/aiFace/aiFace.yy",},},
     {"id":{"name":"aiImporter","path":"scripts/aiImporter/aiImporter.yy",},},
+    {"id":{"name":"aiMaterial","path":"scripts/aiMaterial/aiMaterial.yy",},},
     {"id":{"name":"aiMesh","path":"scripts/aiMesh/aiMesh.yy",},},
     {"id":{"name":"aiMetadataEntry","path":"scripts/aiMetadataEntry/aiMetadataEntry.yy",},},
     {"id":{"name":"aiNode","path":"scripts/aiNode/aiNode.yy",},},

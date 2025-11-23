@@ -7,7 +7,6 @@
  */
 function aiImporter() constructor {
 	
-	mScene = undefined;
 	mErrorString = "";
 	
 	/// @ignore
@@ -96,14 +95,16 @@ function aiImporter() constructor {
 														_value[12], _value[13], _value[14], _value[15]);
 				ASSIMP_SetImporterPropertyMatrix(_name);
 			});
-		
 			var _check = ASSIMP_ReadFile(_pFile, _pFlags);
 			mErrorString = ASSIMP_GetImporterErrorString();
-			if (!_check) {
+			if (_check) {
 				ASSIMP_BindScene();
-				
+				var _scene =  new aiScene();
+				_scene.__read_bound();
+				ASSIMP_DeleteImporter(_importer);
+				return _scene;
 			}
-		
+			
 			ASSIMP_DeleteImporter(_importer);
 		} else {
 			mErrorString = "DLL not working";

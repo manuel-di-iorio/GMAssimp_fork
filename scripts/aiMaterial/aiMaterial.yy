@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"aiMaterial",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"aiMaterial",
+  "parent":{
+    "name":"Libraries",
+    "path":"folders/Libraries.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

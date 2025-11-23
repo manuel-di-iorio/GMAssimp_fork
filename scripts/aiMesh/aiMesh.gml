@@ -79,50 +79,55 @@ function aiMesh() constructor {
 		mMaterialIndex = ASSIMP_GetMeshMaterialIndex();
 		
 		var _mNumFaces = ASSIMP_GetMeshFacesNum();
-			for (var _f = 0; _f < _mNumFaces; _f++) {
-				var _face = new aiFace();
-				_face.mNumIndices = ASSIMP_GetMeshFaceVerticesNum(_f);
-				for (var _i = 0; _i < mNumIndices; _i++) {
-					array_push(_face.mIndices, ASSIMP_GetMeshFaceVertexIndex(_f, _i))
-				}
-				array_push(mFaces, _face);
+		mFaces = array_create(_mNumFaces, 0);	//Preallocation
+		for (var _f = 0; _f < _mNumFaces; _f++) {
+			var _face = new aiFace();
+			_face.mNumIndices = ASSIMP_GetMeshFaceVerticesNum(_f);
+			for (var _i = 0; _i < _face.mNumIndices; _i++) {
+				array_push(_face.mIndices, ASSIMP_GetMeshFaceVertexIndex(_f, _i))
 			}
+			mFaces[_i]= _face;
+		}
 		
 		mNumVertices = ASSIMP_GetMeshVerticesNum();
-			for (var _i = 0; _i < mNumVertices; _i++) {
-				var _v = new aiVector3D();
-				_v.x = ASSIMP_GetMeshVertexX(_i);
-				_v.y = ASSIMP_GetMeshVertexY(_i);
-				_v.z = ASSIMP_GetMeshVertexZ(_i);
-				array_push(mVertices, _v);
-			}
+		mVertices = array_create(mNumVertices, 0);	//Preallocation
+		for (var _i = 0; _i < mNumVertices; _i++) {
+			var _v = new aiVector3D();
+			_v.x = ASSIMP_GetMeshVertexX(_i);
+			_v.y = ASSIMP_GetMeshVertexY(_i);
+			_v.z = ASSIMP_GetMeshVertexZ(_i);
+			mVertices[_i] = _v;
+		}
 		
 		// Normals
-		if (ASSIMP_MeshHasNormals()()) {
+		if (ASSIMP_MeshHasNormals()) {
+			mNormals = array_create(mNumVertices, 0);	//Preallocation
 			for (var _i = 0; _i < mNumVertices; _i++) {
 				var _v = new aiVector3D();
-				_v.x = ASSIMP_GetMeshNormalX()(_i);
+				_v.x = ASSIMP_GetMeshNormalX(_i);
 				_v.y = ASSIMP_GetMeshNormalY(_i);
 				_v.z = ASSIMP_GetMeshNormalZ(_i);
-				array_push(mNormals, _v);
+				mNormals[_i] = _v;
 			}
 		}
 		
 		// Tangents
 		if (ASSIMP_MeshHasTangents()) {
+			mTangents = array_create(mNumVertices, 0);	//Preallocation
 			for (var _i = 0; _i < mNumVertices; _i++) {
 				var _v = new aiVector3D();
-				_v.x = ASSIMP_GetMeshTangentX()(_i);
+				_v.x = ASSIMP_GetMeshTangentX(_i);
 				_v.y = ASSIMP_GetMeshTangentY(_i);
 				_v.z = ASSIMP_GetMeshTangentZ(_i);
-				array_push(mTangents, _v);
+				mTangents[_i] = _v;
 			}
+			mBitangents = array_create(mNumVertices, 0);	//Preallocation
 			for (var _i = 0; _i < mNumVertices; _i++) {
 				var _v = new aiVector3D();
 				_v.x = ASSIMP_GetMeshBitangentX(_i);
 				_v.y = ASSIMP_GetMeshBitangentY(_i);
 				_v.z = ASSIMP_GetMeshBitangentZ(_i);
-				array_push(mBitangents, _v);
+				mBitangents[_i] = _v;
 			}
 		}
 		
