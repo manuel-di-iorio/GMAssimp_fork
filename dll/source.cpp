@@ -40,6 +40,7 @@ aiMatrix4x4 act_matrix;
 aiAnimation* act_animation;
 aiNodeAnim* act_node_anim;
 aiMeshAnim* act_mesh_anim;
+aiMeshMorphAnim* act_morph_anim;
 aiMetadata* act_metadata;
 
 aiScene* act_mesh_scene;
@@ -2820,6 +2821,12 @@ namespace Animation
 			return act_animation->mNumMeshChannels;
 		}
 
+		export double GetAnimationMorphMeshChannelsNum()
+		{
+			if (!act_animation) { return 0; }
+			return act_animation->mNumMorphMeshChannels;
+		}
+
 		export const char* GetAnimationName()
 		{
 			if (!act_animation) { return ""; }
@@ -3070,7 +3077,7 @@ namespace Animation
 			}
 		}
 
-		export const char* GetMeshAnimNodeName()
+		export const char* GetMeshAnimName()
 		{
 			if (!act_mesh_anim) { return ""; }
 			return (char*)act_mesh_anim->mName.C_Str();
@@ -3092,6 +3099,68 @@ namespace Animation
 		{
 			if (!act_mesh_anim) { return 0; }
 			return act_mesh_anim->mKeys[(uint)key_id].mValue;
+		}
+	}
+
+	namespace MorphMeshAnimations
+	{
+		export double BindMorphMeshAnimation(double morph_anim_id)
+		{
+			if (!act_animation) { return false; }
+			if (morph_anim_id < 0 || morph_anim_id >= act_animation->mNumMeshChannels)
+			{
+				act_morph_anim = NULL;
+				return false;
+			}
+			else
+			{
+				act_morph_anim = act_animation->mMorphMeshChannels[(uint)morph_anim_id];
+				return true;
+			}
+		}
+
+		export const char* GetMorphMeshAnimName()
+		{
+			if (!act_morph_anim) { return ""; }
+			return (char*)act_morph_anim->mName.C_Str();
+		}
+
+		export double GetMorphMeshAnimKeysNum()
+		{
+			if (!act_morph_anim) { return 0; }
+			return act_morph_anim->mNumKeys;
+		}
+
+		export double GetMorphMeshAnimKeyTime(double key_id)
+		{
+			if (!act_morph_anim) { return 0; }
+			if (key_id < 0 || key_id >= act_morph_anim->mNumKeys) { return 0; }
+			return act_morph_anim->mKeys[(uint)key_id].mTime;
+		}
+
+		export double GetMorphMeshAnimKeyNumValuesAndWeights(double key_id)
+		{
+			if (!act_morph_anim) { return 0; }
+			if (key_id < 0 || key_id >= act_morph_anim->mNumKeys) { return 0; }
+			return act_morph_anim->mKeys[(uint)key_id].mNumValuesAndWeights;
+		}
+
+		export double GetMorphMeshAnimKeyValue(double key_id, double value_id)
+		{
+			if (!act_morph_anim) { return 0; }
+			if (key_id < 0 || key_id >= act_morph_anim->mNumKeys) { return 0; }
+			auto key = act_morph_anim->mKeys[(uint)key_id];
+			if (value_id < 0 || value_id >= key.mNumValuesAndWeights) { return 0; }
+			return act_morph_anim->mKeys[(uint)key_id].mValues[(uint)value_id];
+		}
+
+		export double GetMorphMeshAnimKeyWeight(double key_id, double weight_id)
+		{
+			if (!act_morph_anim) { return 0; }
+			if (key_id < 0 || key_id >= act_morph_anim->mNumKeys) { return 0; }
+			auto key = act_morph_anim->mKeys[(uint)key_id];
+			if (weight_id < 0 || weight_id >= key.mNumValuesAndWeights) { return 0; }
+			return act_morph_anim->mKeys[(uint)key_id].mWeights[(uint)weight_id];
 		}
 	}
 }

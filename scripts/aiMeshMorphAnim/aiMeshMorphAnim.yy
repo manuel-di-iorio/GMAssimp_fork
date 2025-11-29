@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"aiMeshMorphAnim",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"aiMeshMorphAnim",
+  "parent":{
+    "name":"Animation",
+    "path":"folders/Libraries/Assimp/Animation.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

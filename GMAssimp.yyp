@@ -48,6 +48,8 @@
     {"id":{"name":"aiMesh","path":"scripts/aiMesh/aiMesh.yy",},},
     {"id":{"name":"aiMeshAnim","path":"scripts/aiMeshAnim/aiMeshAnim.yy",},},
     {"id":{"name":"aiMeshKey","path":"scripts/aiMeshKey/aiMeshKey.yy",},},
+    {"id":{"name":"aiMeshMorphAnim","path":"scripts/aiMeshMorphAnim/aiMeshMorphAnim.yy",},},
+    {"id":{"name":"aiMeshMorphKey","path":"scripts/aiMeshMorphKey/aiMeshMorphKey.yy",},},
     {"id":{"name":"aiMetadataEntry","path":"scripts/aiMetadataEntry/aiMetadataEntry.yy",},},
     {"id":{"name":"aiNode","path":"scripts/aiNode/aiNode.yy",},},
     {"id":{"name":"aiNodeAnim","path":"scripts/aiNodeAnim/aiNodeAnim.yy",},},

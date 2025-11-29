@@ -5,7 +5,7 @@ function aiMeshAnim() constructor {
 	
 	/// @ignore
 	static __read_bound = function() {
-		mName = ASSIMP_GetMeshAnimNodeName();
+		mName = ASSIMP_GetMeshAnimName();
 		
 		var _mNumKeys = ASSIMP_GetMeshAnimKeysNum();
 		for (var _i = 0; _i < _mNumKeys; _i++) {

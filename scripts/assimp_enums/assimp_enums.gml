@@ -6,7 +6,7 @@
 ///Enums definition
 
 //Assimp Post Process
-enum ASSIMP_PP
+enum aiProcess
 {
 	CALC_TANGENT_SPACE			= 0x1,
 	JOIN_IDENTICAL_VERTICES		= 0x2,
